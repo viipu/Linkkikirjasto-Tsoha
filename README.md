@@ -2,8 +2,10 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki 
+sovellukseeni](http://virsumu.users.cs.helsinki.fi/linkkikirjasto/)
+* [Linkki 
+dokumentaatiooni](https://github.com/viipu/Linkkikirjasto-Tsoha/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
