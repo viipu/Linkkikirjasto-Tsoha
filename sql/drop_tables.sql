@@ -1,1 +1,3 @@
--- Lisää DROP TABLE lauseet tähän tiedostoon
+DROP TABLE IF EXISTS Loan CASCADE; -- Muista IF EXISTS ja CASCADE parametrit!
+DROP TABLE IF EXISTS Item CASCADE;
+DROP TABLE IF EXISTS Account CASCADE;
