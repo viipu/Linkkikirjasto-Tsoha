@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Käyttäjän Virpi lainat</h1>
+
+  <p>
+    <a href="#" class="btn btn-success">Lainaa uusi kohde</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Aineiston tyyppi</th>
+        <th>Lainauspäivä</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan lainat tähän -->
+      <tr>
+        <td><a href="#">Logicomix</a></td>
+        <td>kirja</td>
+        <td>27.12.2016</td>
+        <td><label class="label label-danger">lainassa</label></td>
+        <th><a class="btn btn-default btn-sm" href="#">Palauta</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

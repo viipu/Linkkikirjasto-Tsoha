@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Logicomix</h1>
+  <!-- Painikkeet tähän -->
+  <p>
+      Nämä napit näkyvät vain ylläpitäjälle:
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+  </p>
+  <p>
+    <a href="#" class="btn btn-default">Palauta</a>
+  </p>
+  <!-- Tiedot tulevat listana tähän -->
+  <ul>
+    <li><strong>Aineiston tyyppi:</strong> kirja</li>
+    <li><strong>Status:</strong> <label class="label label-danger">lainassa</label></li>
+    <li><strong>Lainaaja:</strong> Virpi - tämä näkyy vain ylläpitäjälle</li>
+  </ul>
+  <!-- Kuvaus tulee tähän -->
+  <p>
+    Sarjakuva loogisen ajattelun kehityksestä.
+   </p>
+{% endblock %}
