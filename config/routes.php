@@ -17,9 +17,20 @@ $routes->get('/loans/1', function() {
 $routes->get('/login', function() {
     HelloWorldController::login();
 });
-$routes->get('/items', function() {
-  HelloWorldController::items_list();
+$routes->get('/item', function() {
+    ItemController::index();
+//  HelloWorldController::items_list();
 });
-$routes->get('/items/1', function() {
-  HelloWorldController::item_show();
+$routes->get('/item/:id', function($id) {
+    ItemController::show($id);
 });
+$routes->post('/item', function(){
+  ItemController::store();
+});
+// Pelin lisäyslomakkeen näyttäminen
+$routes->get('/item/new', function(){
+  ItemController::create();
+});
+//$routes->get('/items/1', function() {
+//    HelloWorldController::item_show();
+//});

@@ -10,8 +10,14 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-//      echo 'Hello World! Hiekkalaatikko!';
-        View::make('helloworld.html');
+      echo 'Hello World! Hiekkalaatikko!';
+//        View::make('helloworld.html');
+
+        $logi = Item::find(1);
+        $items = Item::all();
+        // Kint-luokan dump-metodi tulostaa muuttujan arvon
+        Kint::dump($items);
+        Kint::dump($logi);
     }
 
     public static function items_list() {
