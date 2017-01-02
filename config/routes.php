@@ -21,15 +21,14 @@ $routes->get('/item', function() {
     ItemController::index();
 //  HelloWorldController::items_list();
 });
-$routes->get('/item/:id', function($id) {
-    ItemController::show($id);
-});
 $routes->post('/item', function(){
   ItemController::store();
 });
-// Pelin lisäyslomakkeen näyttäminen
 $routes->get('/item/new', function(){
   ItemController::create();
+});
+$routes->get('/item/:id', function($id) {
+    ItemController::show($id);
 });
 //$routes->get('/items/1', function() {
 //    HelloWorldController::item_show();

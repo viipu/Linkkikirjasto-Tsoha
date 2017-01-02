@@ -11,6 +11,10 @@ class ItemController extends BaseController {
         $item = Item::find($id);
         View::make('item/show.html', array('item' => $item));
     }
+    
+    public static function create() {
+        View::make('item/new.html');
+    }
 
     public static function store() {
         $params = $_POST;
