@@ -13,4 +13,6 @@ Linkkikirjasto on sovellus Helsingin yliopiston Tietojenkäsittelytieteen laitok
 
 ## Käyttöohjeet
 
-Järjestelmään pääsee kirjautumaan sähköpostiosoitteella Ada@ada.fi ja salasanalla 123.
+Järjestelmään pääsee kirjautumaan pääkäyttäjänä sähköpostiosoitteella 
+Ada@ada.fi ja salasanalla 123. Rajoitetumpi toiminnallisuus löytyy 
+käyttäjältä Charles@ada.fi, salasana 123.
