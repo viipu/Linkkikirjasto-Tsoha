@@ -87,22 +87,4 @@ class ItemController extends BaseController {
     Kint::dump($items);
     Kint::dump($logi);
   }
-
-  public static function items_list() {
-    View::make('suunnitelmat/items_list.html');
-  }
-
-  public static function item_show() {
-    View::make('suunnitelmat/item_show.html');
-  }
-
-  public static function loans_list() {
-    View::make('suunnitelmat/loans_list.html');
-  }
-
-  public static function login() {
-    View::make('suunnitelmat/login.html');
-  }
-
-//}
 }

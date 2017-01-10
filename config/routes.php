@@ -39,6 +39,17 @@ $routes->post('/item/:id/edit', function($id) {
 $routes->post('/item/:id/destroy', function($id) {
   ItemController::destroy($id);
 });
+
+$routes->get('/account/:id', function($id) {
+  AccountController::show($id);
+});
+$routes->get('/login', function(){
+  AccountController::login();
+});
+$routes->post('/login', function(){
+  AccountController::handle_login();
+});
+
 //$routes->get('/items/1', function() {
 //    HelloWorldController::item_show();
 //});
