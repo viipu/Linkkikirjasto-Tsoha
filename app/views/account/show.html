@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{account.title}}</h1>
+
+{% if user_logged_in %}
+<h1>{{user_logged_in.email}}</h1>
+
+{% if message %}
+<div class="alert alert-default">
+  {{message}}
+</div>
+{% endif %}
 <!-- Painikkeet tähän 
 
 
@@ -9,8 +17,12 @@
 </p>
 <!-- Tiedot tulevat listana tähän -->
 <ul>
-  <li><strong>email:</strong> {{account.email}}</li>
-  <li><strong>Muita tietoja...</strong> <label class="label label-danger">Muita tietoja...</label></li>
-  <li><strong>Muita tietoja...</strong> Muita tietoja...</li>
+  <li><strong>email:</strong> {{user_logged_in.email}}</li>
+  <li><strong>Muita tietoja: </strong> <label class="label label-danger">Muita tietoja...</label></li>
+  <li><strong>Muita tietoja: </strong> Muita tietoja...</li>
 </ul>
+
+{% else %}
+<a href="{{base_path}}/login" class="btn btn-default">Kirjaudu sisään</a>
+{% endif %}
 {% endblock %}

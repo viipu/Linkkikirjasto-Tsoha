@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-  HelloWorldController::index();
+  ItemController::index();
 });
 
 $routes->get('/hiekkalaatikko', function() {
@@ -14,9 +14,6 @@ $routes->get('/loans/1', function() {
   HelloWorldController::item_show();
 });
 
-$routes->get('/login', function() {
-  HelloWorldController::login();
-});
 $routes->get('/item/', function() {
   ItemController::index();
 //  HelloWorldController::items_list();
@@ -49,7 +46,3 @@ $routes->get('/login', function(){
 $routes->post('/login', function(){
   AccountController::handle_login();
 });
-
-//$routes->get('/items/1', function() {
-//    HelloWorldController::item_show();
-//});

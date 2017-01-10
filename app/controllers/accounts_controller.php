@@ -15,9 +15,7 @@ class AccountController extends BaseController {
       View::make('account/login.html', array('error' => 'Väärä sähköpostiosoite tai salasana!', 'email' => $params['email']));
     } else {
       $_SESSION['user'] = $account->id;
-//      <!--Ongelma? -->
-
-      Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $account->email . '!'));
+      Redirect::to('/account/' . $account->id, array('message' => 'Tervetuloa takaisin ' . $account->email . '!'));
     }
   }
 

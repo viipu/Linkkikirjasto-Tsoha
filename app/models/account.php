@@ -6,6 +6,7 @@ class Account extends BaseModel {
 
   public function __construct($attributes) {
     parent::__construct($attributes);
+    $this->validators = array('validate_email');
   }
 
   public static function authenticate($email, $password) {
@@ -45,6 +46,12 @@ class Account extends BaseModel {
       return $account;
     }
     return null;
+  }
+
+  public function validate_email($email) {
+    $errors = array();
+    //toteutetaan myöhemmin
+    return $errors;
   }
 
 }

@@ -21,10 +21,17 @@ class HelloWorldController extends BaseController {
             'otherdetails' => ''
         ));
          $errors = $testi->errors();
+         
+        $ada = Account::find(1);
+        $kirj = Account::authenticate('Ada@ada.fi', '123');
+        $eikirj = Account::authenticate('Ada@ada.fi', '1234');
         // Kint-luokan dump-metodi tulostaa muuttujan arvon
         Kint::dump($items);
         Kint::dump($logi);
         Kint::dump($errors);
+        Kint::dump($ada);
+        Kint::dump($kirj);
+        Kint::dump($eikirj);
     }
 
     public static function items_list() {
