@@ -17,6 +17,7 @@ Järjestelmään pääsee kirjautumaan pääkäyttäjänä sähköpostiosoitteel
 Ada@ada.fi ja salasanalla 123. Rajoitetumpi toiminnallisuus löytyy 
 käyttäjältä Charles@ada.fi, salasana 123.
 
+## Lisenssi  
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img 
 alt="Creative Commons Licence" style="border-width:0" 
 src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This 

@@ -18,8 +18,8 @@
 <!-- Tiedot tulevat listana tähän -->
 <ul>
   <li><strong>email:</strong> {{user_logged_in.email}}</li>
-  <li><strong>Muita tietoja: </strong> <label class="label label-danger">Muita tietoja...</label></li>
-  <li><strong>Muita tietoja: </strong> Muita tietoja...</li>
+  <li><strong>Sukunimi: </strong> {{user_logged_in.surname}}</li>
+  <li><strong>Muut nimet: </strong> {{user_logged_in.othernames}}</li>
 </ul>
 
 {% else %}
