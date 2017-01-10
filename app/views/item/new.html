@@ -18,10 +18,15 @@
     <input type="text" name="title" class="form-control" value="{{attributes.title}}">
   </div>
 
-  <div class="form-group">
-    <label class="control-label">Tekijä valitaan listasta - toteutetaan myöhemmin </label>
-  </div>
 
+  <div class="form-group">
+    <label>Tekijä</label>
+    <select class="form-control" name="authors[]" multiple="">
+      {% for author in authors %}
+      <option value="{{author.id}}">{{author.surname}}, {{author.othernames}}</option>
+      {% endfor %}
+    </select>
+  </div>
 
   <div class="form-group">
     <label class="control-label">Tyyppi</label>

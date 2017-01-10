@@ -2,7 +2,7 @@ CREATE TABLE Account(
   id SERIAL PRIMARY KEY, -- SERIAL tyyppinen pääavain pitää huolen, että tauluun lisätyllä rivillä on aina uniikki pääavain. Kätevää!
   surname varchar(50), 
   othernames varchar(50),
-  email varchar(50) NOT NULL, 
+  email varchar(50) UNIQUE NOT NULL, 
   password varchar(50) NOT NULL,
   created DATE,
   accounttype INTEGER

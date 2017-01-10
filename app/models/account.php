@@ -47,6 +47,31 @@ class Account extends BaseModel {
     }
     return null;
   }
+  
+  public static function all() {
+    // Alustetaan kysely tietokantayhteydellämme
+    $query = DB::connection()->prepare('SELECT * FROM Account');
+    // Suoritetaan kysely
+    $query->execute();
+    // Haetaan kyselyn tuottamat rivit
+    $rows = $query->fetchAll();
+    $accounts = array();
+
+    // Käydään kyselyn tuottamat rivit läpi
+    foreach ($rows as $row) {
+      $accounts[] = new Account(array(
+          'id' => $row['id'],
+          'email' => $row['email'],
+          'password' => $row['password'],
+          'surname' => $row['surname'],
+          'othernames' => $row['othernames'],
+          'created' => $row['created'],
+          'accounttype' => $row['accounttype']
+      ));
+    }
+
+    return $accounts;
+  }
 
   public function validate_email($email) {
     $errors = array();

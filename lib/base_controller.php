@@ -12,11 +12,23 @@ class BaseController {
 
     // Käyttäjä ei ole kirjautunut sisään
     return null;
-    }
+  }
 
   public static function check_logged_in() {
-    // Toteuta kirjautumisen tarkistus tähän.
-    // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
+    if (!isset($_SESSION['user'])) {
+      Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
+    }
+  }
+
+  public static function check_authorized() {
+    if (!isset($_SESSION['user'])) {
+      Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
+    } else {
+      $user = self::get_user_logged_in();
+      if ($user->accounttype != 1) {
+        Redirect::to('/login', array('message' => 'Kirjaudu sisään pääkäyttäjänä!'));
+      }
+    }
   }
 
 }

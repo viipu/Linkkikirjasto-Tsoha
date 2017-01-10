@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user_logged_in %}
+<h1>{{user_logged_in.email}}</h1>
+
+{% if message %}
+<div class="alert alert-info">
+  {{message}}
+</div>
+{% endif %}
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Sähköposti</th>
+        <th>Sukunimi</th>
+        <th>Muut nimet</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for account in accounts %}
+        <tr>
+          <td><a href="{{base_path}}/account/{{account.id}}">{{account.email}}</a></td>
+          <td>{{account.surname}}</td>
+          <td>{{account.othernames}}</td>
+          <td><a class="btn btn-default btn-sm" href="{{base_path}}/account/{{account.id}}/edit">Muokkaa - ei toimi vielä</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<!--{% else %}
+<a href="{{base_path}}/login" class="btn btn-default">Kirjaudu sisään</a>-->
+{% endif %}
+{% endblock %}

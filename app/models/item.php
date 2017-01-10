@@ -3,7 +3,7 @@
 class Item extends BaseModel {
 
   // Attribuutit
-  public $id, $title, $itemtype, $added, $otherdetails;
+  public $id, $title, $itemtype, $added, $otherdetails, $authors;
 
   // Konstruktori
   public function __construct($attributes) {
@@ -57,10 +57,22 @@ class Item extends BaseModel {
   public function save() {
     $query = DB::connection()->prepare('INSERT INTO Item (title, itemtype, otherdetails) VALUES (:title, :itemtype, :otherdetails) RETURNING id');
     $query->execute(array('title' => $this->title, 'itemtype' => $this->itemtype, 'otherdetails' => $this->otherdetails));
-
     $row = $query->fetch();
-
     $this->id = $row['id'];
+
+    if ($this->authors != null) {
+      $queryRow = 'INSERT INTO ItemAuthor (item_id, author_id) VALUES ';
+      foreach ($this->authors as $author_id) {
+        $queryRow .= '(\'' . $this->id . '\', \'' . $author_id . '\')';
+        if ($author_id === end($this->authors)) {
+          $queryRow .= ';';
+        } else {
+          $queryRow .= ', ';
+        }
+      }
+      $query = DB::connection()->prepare($queryRow);
+      $query->execute();
+    }
   }
 
   public function update() {
@@ -70,9 +82,9 @@ class Item extends BaseModel {
             . 'otherdetails = :otherdetails '
             . 'WHERE id = :id');
     $query->execute(array(
-        'title' => $this->title, 
-        'itemtype' => $this->itemtype, 
-        'otherdetails' => $this->otherdetails, 
+        'title' => $this->title,
+        'itemtype' => $this->itemtype,
+        'otherdetails' => $this->otherdetails,
         'id' => $this->id));
 
     $row = $query->fetch();

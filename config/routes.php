@@ -16,7 +16,6 @@ $routes->get('/loans/1', function() {
 
 $routes->get('/item/', function() {
   ItemController::index();
-//  HelloWorldController::items_list();
 });
 $routes->post('/item', function() {
   ItemController::store();
@@ -37,6 +36,9 @@ $routes->post('/item/:id/destroy', function($id) {
   ItemController::destroy($id);
 });
 
+$routes->get('/account/', function() {
+  AccountController::index();
+});
 $routes->get('/account/:id', function($id) {
   AccountController::show($id);
 });
@@ -45,4 +47,7 @@ $routes->get('/login', function(){
 });
 $routes->post('/login', function(){
   AccountController::handle_login();
+});
+$routes->post('/logout', function(){
+  AccountController::logout();
 });
