@@ -17,7 +17,7 @@ $routes->get('/loans/1', function() {
 $routes->get('/login', function() {
   HelloWorldController::login();
 });
-$routes->get('/item', function() {
+$routes->get('/item/', function() {
   ItemController::index();
 //  HelloWorldController::items_list();
 });

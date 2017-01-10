@@ -69,11 +69,13 @@ class Item extends BaseModel {
             . 'itemtype = :itemtype, '
             . 'otherdetails = :otherdetails '
             . 'WHERE id = :id');
-    $query->execute(array('title' => $this->title, 'itemtype' => $this->itemtype, 'otherdetails' => $this->otherdetails));
+    $query->execute(array(
+        'title' => $this->title, 
+        'itemtype' => $this->itemtype, 
+        'otherdetails' => $this->otherdetails, 
+        'id' => $this->id));
 
-//    $row = $query->fetch();
-//
-//    $this->id = $row['id'];
+    $row = $query->fetch();
   }
 
   public function destroy() {

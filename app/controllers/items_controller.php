@@ -48,11 +48,12 @@ class ItemController extends BaseController {
     $params = $_POST;
 
     $attributes = array(
+        'id' => $id,
         'title' => $params['title'],
         'itemtype' => $params['itemtype'],
         'otherdetails' => $params['otherdetails']
     );
-
+  
     // Alustetaan Item-olio käyttäjän syöttämillä tiedoilla
     $item = new Item($attributes);
     $errors = $item->errors();
@@ -69,12 +70,9 @@ class ItemController extends BaseController {
 
   // Aineiston poistaminen
   public static function destroy($id){
-    // Alustetaan Item-olio annetulla id:llä
     $item = new Item(array('id' => $id));
-    // Kutsutaan Item-malliluokan metodia destroy, joka poistaa aineiston sen id:llä
     $item->destroy();
 
-    // Ohjataan käyttäjä pelien listaussivulle ilmoituksen kera
     Redirect::to('/item', array('message' => 'Aineisto on poistettu onnistuneesti!'));
   }
 

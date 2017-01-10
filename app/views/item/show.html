@@ -7,11 +7,9 @@
   Nämä napit näkyvät vain ylläpitäjälle:
   <!--<button class="btn btn-danger">Poista (ei toimi vielä)</button>--> 
   <a href="{{base_path}}/item/{{item.id}}/edit" class="btn btn-default">Muokkaa</a>
+  <!--{{forms.edit_button("#{base_path}/item/#{item.id}/edit")}}-->
+  {{forms.destroy_button("#{base_path}/item/#{item.id}/destroy")}}
 </p>
-
-<form method="post" action="{{base_path}}/item/{{item.id}}/destroy" style="display: inline-block;">
-  <button type="submit" class="btn btn-danger">Poista</button>
-</form>
 
 
 <p>
