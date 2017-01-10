@@ -1,22 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>{{item.title}}</h1>
-  <!-- Painikkeet tähän -->
-  <p>
-      Nämä napit näkyvät vain ylläpitäjälle:
-    <button class="btn btn-danger">Poista (ei toimi vielä)</button> <a href="{{base_path}}/item/{{item.id}}/edit" class="btn btn-default">Muokkaa</a>
-  </p>
-  <p>
-    <a href="#" class="btn btn-default">Palauta (ei toimi vielä)</a>
-  </p>
-  <!-- Tiedot tulevat listana tähän -->
-  <ul>
-    <li><strong>Aineiston tyyppi:</strong> {{item.itemtype}}</li>
-    <li><strong>Status:</strong> <label class="label label-danger">Tieto haetaan Loan-taulun kautta?</label></li>
-    <li><strong>Lainaaja:</strong> Tieto haetaan Loan-taulun kautta, näkyy vain ylläpitäjälle</li>
-  </ul>
-  <!-- Kuvaus tulee tähän -->
-  <p>
-    {{item.otherdetails}}
-   </p>
+{% import "macros/forms.html" as forms %}
+<h1>{{item.title}}</h1>
+<!-- Painikkeet tähän -->
+<p>
+  Nämä napit näkyvät vain ylläpitäjälle:
+  <!--<button class="btn btn-danger">Poista (ei toimi vielä)</button>--> 
+  <a href="{{base_path}}/item/{{item.id}}/edit" class="btn btn-default">Muokkaa</a>
+</p>
+
+<form method="post" action="{{base_path}}/item/{{item.id}}/destroy" style="display: inline-block;">
+  <button type="submit" class="btn btn-danger">Poista</button>
+</form>
+
+
+<p>
+  <a href="#" class="btn btn-default">Palauta (ei toimi vielä)</a>
+</p>
+<!-- Tiedot tulevat listana tähän -->
+<ul>
+  <li><strong>Aineiston tyyppi:</strong> {{item.itemtype}}</li>
+  <li><strong>Status:</strong> <label class="label label-danger">Tieto haetaan Loan-taulun kautta?</label></li>
+  <li><strong>Lainaaja:</strong> Tieto haetaan Loan-taulun kautta, näkyy vain ylläpitäjälle</li>
+</ul>
+<!-- Kuvaus tulee tähän -->
+<p>
+  {{item.otherdetails}}
+</p>
 {% endblock %}

@@ -15,9 +15,16 @@ class HelloWorldController extends BaseController {
 
         $logi = Item::find(1);
         $items = Item::all();
+        $testi = new Item(array(
+            'title' => '',
+            'itemtype' => '',
+            'otherdetails' => ''
+        ));
+         $errors = $testi->errors();
         // Kint-luokan dump-metodi tulostaa muuttujan arvon
         Kint::dump($items);
         Kint::dump($logi);
+        Kint::dump($errors);
     }
 
     public static function items_list() {

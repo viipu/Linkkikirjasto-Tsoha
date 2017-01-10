@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Lisää uusi aineisto kirjastoon</h1>
+<h1>Muokkaa aineistoa</h1>
 
 {% if errors %}
 <div class="alert alert-danger">
@@ -25,16 +25,16 @@
 
   <div class="form-group">
     <label class="control-label">Tyyppi</label>
-    <textarea name="itemtype" class="form-control" value="{{attributes.itemtype}}"></textarea>
+    <input type="text"  name="itemtype" class="form-control" value="{{attributes.itemtype}}"></textarea>
   </div>
 
   <div class="form-group">
     <label class="control-label">Muita tietoja</label>
-    <textarea name="otherdetails" class="form-control" value="{{attributes.otherdetails}}"></textarea>
+    <input type="text"  name="otherdetails" class="form-control" value="{{attributes.otherdetails}}"></textarea>
   </div>
 
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">Lisää</button>
+    <button type="submit" class="btn btn-primary">Talleta</button>
   </div>
 </form>
 {% endblock %}
