@@ -10,7 +10,7 @@ CREATE TABLE Account(
 
 CREATE TABLE Item(
   id SERIAL PRIMARY KEY,
-  title varchar(50),
+  title varchar(50) NOT NULL,
   itemtype varchar(50),
   added DATE,
   otherdetails varchar(100)

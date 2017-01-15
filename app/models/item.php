@@ -91,9 +91,32 @@ class Item extends BaseModel {
   }
 
   public function destroy() {
+    $query = DB::connection()->prepare('DELETE FROM ItemAuthor WHERE ItemAuthor.item_id = :id');
+    $query->execute(array('id' => $this->id));
     $query = DB::connection()->prepare('DELETE FROM Item WHERE id = :id');
     $query->execute(array('id' => $this->id));
   }
+    public static function authorsItems($author_id) {
+        $query = DB::connection()->prepare(
+                'SELECT Item.id, Item.title
+                FROM Author
+                INNER JOIN ItemAuthor
+                ON ItemAuthor.author_id = Author.id
+                INNER JOIN Item
+                ON Item.id = ItemAuthor.item_id
+                WHERE Author.id =:author_id');
+        $query->execute(array('id' => $author_id));
+        $rows = $query->fetchAll();
+        $items = array();
+        
+        foreach ($rows as $row) {
+            $items[] = new Item(array(
+                'id' => $row['id'],
+                'title' => $row['title']
+            ));
+        }
+        return $items;
+    }
 
   public function validate_title() {
     $errors = $this->{'validate_string_length'}($this->title, 1, 'Nimeke');

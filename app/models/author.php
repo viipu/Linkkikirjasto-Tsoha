@@ -45,4 +45,28 @@ class Author extends BaseModel {
     return $authors;
   }
 
+  
+    public static function itemsAuthors($item_id) {
+        $query = DB::connection()->prepare(
+                'SELECT Author.id, Author.surname, Author.othernames
+                FROM Item
+                INNER JOIN ItemAuthor
+                ON ItemAuthor.item_id = Item.id
+                INNER JOIN Author
+                ON Author.id = ItemAuthor.author_id
+                WHERE Item.id =:item_id');
+        $query->execute(array('id' => $item_id));
+        $rows = $query->fetchAll();
+        $authors = array();
+        
+        foreach ($rows as $row) {
+            $authors[] = new Author(array(
+                'id' => $row['id'],
+                'surname' => $row['surname'],
+                'othernames' => $row['othernames'],
+            ));
+        }
+        return $authors;
+    }
+  
 }

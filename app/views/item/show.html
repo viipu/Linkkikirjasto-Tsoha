@@ -4,14 +4,16 @@
 <h1>{{item.title}}</h1>
 <!-- Painikkeet tähän -->
 
+{% if user_logged_in %}
 <p>
-  Nämä napit näkyvät jatkossa vain ylläpitäjälle:
+  Nämä napit näkyvät jatkossa vain ylläpitäjälle (nyt kaikille kirjautuneille):
   <!--<button class="btn btn-danger">Poista (ei toimi vielä)</button>--> 
   <a href="{{base_path}}/item/{{item.id}}/edit" class="btn btn-default">Muokkaa</a>
   <!--{{forms.edit_button("#{base_path}/item/#{item.id}/edit")}}-->
   {{forms.destroy_button("#{base_path}/item/#{item.id}/destroy")}}
 </p>
 
+{% endif %}
 
 <p>
   <a href="#" class="btn btn-default">Palauta (ei toimi vielä)</a>
