@@ -22,14 +22,17 @@ class ItemController extends BaseController {
   public static function store() {
     self::check_authorized();
     $params = $_POST;
-    $authors = $params['authors'];
     $attributes = array(
         'title' => $params['title'],
         'itemtype' => $params['itemtype'],
-        'otherdetails' => $params['otherdetails']
+        'otherdetails' => $params['otherdetails'],
+        'authors' => array()
     );
-    foreach ($authors as $author) {
-      $attributes['authors'][] = $author;
+    if (array_key_exists('authors', $params)) {
+      $authors = $params['authors'];
+      foreach ($authors as $author) {
+        $attributes['authors'][] = $author;
+      }
     }
 
     $item = new Item($attributes);
@@ -59,17 +62,20 @@ class ItemController extends BaseController {
   public static function update($id) {
     self::check_authorized();
     $params = $_POST;
-    $authors = $params['authors'];
 
     $attributes = array(
         'id' => $id,
         'title' => $params['title'],
         'itemtype' => $params['itemtype'],
-        'otherdetails' => $params['otherdetails']
+        'otherdetails' => $params['otherdetails'],
+        'authors' => array()
     );
-    
-    foreach ($authors as $author) {
-      $attributes['authors'][] = $author;
+
+    if (array_key_exists('authors', $params)) {
+      $authors = $params['authors'];
+      foreach ($authors as $author) {
+        $attributes['authors'][] = $author;
+      }
     }
 
     // Alustetaan Item-olio käyttäjän syöttämillä tiedoilla
