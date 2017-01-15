@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa tekijää</h1>
+
+<form method="post" action="{{base_path}}/author/{{attributes.id}}/edit">
+  <div class="form-group">
+    <label class="control-label">Sukunimi</label>
+    <input type="text" name="surname" class="form-control" value="{{attributes.surname}}">
+  </div>
+  <div class="form-group">
+    <label class="control-label">Muut nimet</label>
+    <input type="text" name="othernames" class="form-control" value="{{attributes.othernames}}">
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Tallenna</button>
+  </div>
+</form>
+{% endblock %}

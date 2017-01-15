@@ -26,13 +26,18 @@
     <tbody>
       {% for item in items %}
         <tr>
-          <td><a href="{{base_path}}/item/{{item.id}}">{{item.title}}</td>
+          <td><a href="{{base_path}}/item/{{item.id}}">{{item.title}}</a></td>
           <td>{{item.itemtype}}</td>
-          <td>tähän tulee Loan-taulusta haettu aineiston tila*</td>
+          <td>
+    {% if item.status == 0 %}
+    <label class="label label-success">Vapaa</label></li>
+    {% else %}
+    <label class="label label-danger">Lainassa</label></li>
+    {% endif %}
+          </td>
           <td><a class="btn btn-default btn-sm" href="{{base_path}}/item/{{item.id}}/edit">Muokkaa</a></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-  * näin jälkikäteen ajateltuna ei varmastikaan ole järkevää käydä Loan-taulua läpi joka Itemin kohdalla; kehittelen jonkin muun ratkaisun, mutta en ehdi välttämättä 3-viikon palautukseen sitä saada. 
 {% endblock %}

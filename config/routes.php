@@ -36,6 +36,28 @@ $routes->post('/item/:id/destroy', function($id) {
   ItemController::destroy($id);
 });
 
+$routes->get('/author/', function() {
+  AuthorController::index();
+});
+$routes->post('/author', function() {
+  AuthorController::store();
+});
+$routes->get('/author/new', function() {
+  AuthorController::create();
+});
+$routes->get('/author/:id', function($id) {
+  AuthorController::show($id);
+});
+$routes->get('/author/:id/edit', function($id) {
+  AuthorController::edit($id);
+});
+$routes->post('/author/:id/edit', function($id) {
+  AuthorController::update($id);
+});
+$routes->post('/author/:id/destroy', function($id) {
+  AuthorController::destroy($id);
+});
+
 $routes->get('/account/', function() {
   AccountController::index();
 });

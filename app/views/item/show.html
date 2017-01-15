@@ -6,23 +6,37 @@
 
 {% if user_logged_in %}
 <p>
-  Nämä napit näkyvät jatkossa vain ylläpitäjälle (nyt kaikille kirjautuneille):
-  <!--<button class="btn btn-danger">Poista (ei toimi vielä)</button>--> 
+  <!--TODO: napit näkyviin vain ylläpitäjälle (nyt näkyvät kaikille kirjautuneille):-->
   <a href="{{base_path}}/item/{{item.id}}/edit" class="btn btn-default">Muokkaa</a>
-  <!--{{forms.edit_button("#{base_path}/item/#{item.id}/edit")}}-->
   {{forms.destroy_button("#{base_path}/item/#{item.id}/destroy")}}
 </p>
 
 {% endif %}
 
+<!--TODO: Lainauksen ja palautuksen toteuttaminen
 <p>
   <a href="#" class="btn btn-default">Palauta (ei toimi vielä)</a>
-</p>
+</p>-->
 <!-- Tiedot tulevat listana tähän -->
 <ul>
+
+  <li>
+      <strong>Tekijät:</strong>
+    {% for author in authors %}
+    <a href="{{base_path}}/author/{{author.id}}">{{author.surname}}, {{author.othernames}}</a>{% if loop.last == false %}; {% endif %}
+    {% endfor %}
+  </li>
   <li><strong>Aineiston tyyppi:</strong> {{item.itemtype}}</li>
-  <li><strong>Status:</strong> <label class="label label-danger">Tieto haetaan Loan-taulun kautta?</label></li>
-  <li><strong>Lainaaja:</strong> Tieto haetaan Loan-taulun kautta, näkyy vain ylläpitäjälle</li>
+  <li><strong>Status:</strong> 
+    {% if item.status == 0 %}
+    <label class="label label-success">Vapaa</label></li>
+    {% else %}
+    <label class="label label-danger">Lainassa</label></li>
+    {% endif %}
+    <!--TODO: oikeudet omaavan käyttäjän tarkistus; ei toimi vielä-->
+<!--    {% if user_authorized %}
+    <li><strong>Lainaaja:</strong> <a href="{{base_path}}/account/{{item.account_id}}">{{item.account}}</a></li>
+    {% endif %}-->
 </ul>
 <!-- Kuvaus tulee tähän -->
 <p>

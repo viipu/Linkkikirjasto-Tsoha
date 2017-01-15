@@ -3,19 +3,7 @@
 
 {% if user_logged_in %}
 <h1>{{user_logged_in.email}}</h1>
-<!--
-{% if message %}
-<div class="alert alert-info">
-  {{message}}
-</div>
-{% endif %}-->
-<!-- Painikkeet tähän 
 
-
-<p>
-  <a href="#" class="btn btn-default">Palauta (ei toimi vielä)</a>
-</p>
-<!-- Tiedot tulevat listana tähän -->
 <ul>
   <li><strong>email:</strong> {{user_logged_in.email}}</li>
   <li><strong>Sukunimi: </strong> {{user_logged_in.surname}}</li>

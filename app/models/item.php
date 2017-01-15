@@ -3,7 +3,7 @@
 class Item extends BaseModel {
 
   // Attribuutit
-  public $id, $title, $itemtype, $added, $otherdetails, $authors;
+  public $id, $title, $itemtype, $added, $otherdetails, $authors, $status, $account, $account_id;
 
   // Konstruktori
   public function __construct($attributes) {
@@ -39,13 +39,32 @@ class Item extends BaseModel {
     $query->execute(array('id' => $id));
     $row = $query->fetch();
 
+    # Tarkistetaan onko kohde lainassa
+    $query2 = DB::connection()->prepare('SELECT item_id, Account.id, Account.email '
+            . 'FROM Loan INNER JOIN Account ON Account.id = Loan.account_id '
+            . 'WHERE item_id = :id AND checkedin IS NULL');
+    $query2->execute(array('id' => $id));
+    $row2 = $query2->fetch();
+    $status = 0;
+    $account = "";
+    $account_id = 0;
+
+    if ($row2) {
+      $status = 1;
+      $account = $row2['email'];
+      $account_id = $row2['id'];
+    } 
+
     if ($row) {
       $item = new Item(array(
           'id' => $row['id'],
           'title' => $row['title'],
           'itemtype' => $row['itemtype'],
           'added' => $row['added'],
-          'otherdetails' => $row['otherdetails']
+          'otherdetails' => $row['otherdetails'],
+          'status' => $status,
+          'account' => $account,
+          'account_id' => $account_id
       ));
 
       return $item;
@@ -70,8 +89,8 @@ class Item extends BaseModel {
           $queryRow .= ', ';
         }
       }
-      $query = DB::connection()->prepare($queryRow);
-      $query->execute();
+      $query2 = DB::connection()->prepare($queryRow);
+      $query2->execute();
     }
   }
 
@@ -87,36 +106,52 @@ class Item extends BaseModel {
         'otherdetails' => $this->otherdetails,
         'id' => $this->id));
 
-    $row = $query->fetch();
+    $query2 = DB::connection()->prepare('DELETE FROM ItemAuthor WHERE item_id = :id');
+    $query2->execute(array('id' => $this->id));
+
+    if ($this->authors != null) {
+      $queryRow = 'INSERT INTO ItemAuthor (item_id, author_id) VALUES ';
+      foreach ($this->authors as $author_id) {
+        $queryRow .= '(\'' . $this->id . '\', \'' . $author_id . '\')';
+        if ($author_id === end($this->authors)) {
+          $queryRow .= ';';
+        } else {
+          $queryRow .= ', ';
+        }
+      }
+      $query3 = DB::connection()->prepare($queryRow);
+      $query3->execute();
+    }
   }
 
   public function destroy() {
-    $query = DB::connection()->prepare('DELETE FROM ItemAuthor WHERE ItemAuthor.item_id = :id');
+    $query = DB::connection()->prepare('DELETE FROM ItemAuthor WHERE item_id = :id');
     $query->execute(array('id' => $this->id));
-    $query = DB::connection()->prepare('DELETE FROM Item WHERE id = :id');
-    $query->execute(array('id' => $this->id));
+    $query2 = DB::connection()->prepare('DELETE FROM Item WHERE id = :id');
+    $query2->execute(array('id' => $this->id));
   }
-    public static function authorsItems($author_id) {
-        $query = DB::connection()->prepare(
-                'SELECT Item.id, Item.title
+
+  public static function authorsItems($author_id) {
+    $query = DB::connection()->prepare(
+            'SELECT Item.id, Item.title
                 FROM Author
                 INNER JOIN ItemAuthor
                 ON ItemAuthor.author_id = Author.id
                 INNER JOIN Item
                 ON Item.id = ItemAuthor.item_id
                 WHERE Author.id =:author_id');
-        $query->execute(array('id' => $author_id));
-        $rows = $query->fetchAll();
-        $items = array();
-        
-        foreach ($rows as $row) {
-            $items[] = new Item(array(
-                'id' => $row['id'],
-                'title' => $row['title']
-            ));
-        }
-        return $items;
+    $query->execute(array('author_id' => $author_id));
+    $rows = $query->fetchAll();
+    $items = array();
+
+    foreach ($rows as $row) {
+      $items[] = new Item(array(
+          'id' => $row['id'],
+          'title' => $row['title']
+      ));
     }
+    return $items;
+  }
 
   public function validate_title() {
     $errors = $this->{'validate_string_length'}($this->title, 1, 'Nimeke');

@@ -21,14 +21,13 @@ class BaseController {
   }
 
   public static function check_authorized() {
-    if (!isset($_SESSION['user'])) {
-      Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
-    } else {
-      $user = self::get_user_logged_in();
-      if ($user->accounttype != 1) {
-        Redirect::to('/login', array('message' => 'Kirjaudu sisään pääkäyttäjänä!'));
-      }
+    self::check_logged_in();
+    $user = self::get_user_logged_in();
+    if ($user->accounttype != 1) {
+//      return null;
+      Redirect::to('/login', array('message' => 'Kirjaudu sisään pääkäyttäjänä!'));
     }
+    return $user;
   }
 
 }

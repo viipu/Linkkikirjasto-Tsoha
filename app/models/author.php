@@ -6,7 +6,7 @@ class Author extends BaseModel {
 
   public function __construct($attributes) {
     parent::__construct($attributes);
-//    $this->validators = array();
+    $this->validators = array();
   }
 
   public static function find($id) {
@@ -45,6 +45,31 @@ class Author extends BaseModel {
     return $authors;
   }
 
+
+  public function save() {
+    $query = DB::connection()->prepare('INSERT INTO Author (surname, othernames) VALUES (:surname, :othernames) RETURNING id');
+    $query->execute(array('surname' => $this->surname, 'othernames' => $this->othernames));
+    $row = $query->fetch();
+    $this->id = $row['id'];
+  }
+
+  public function update() {
+    $query = DB::connection()->prepare('UPDATE Author SET '
+            . 'surname = :surname, '
+            . 'othernames = :othernames '
+            . 'WHERE id = :id');
+    $query->execute(array(
+        'surname' => $this->surname,
+        'othernames' => $this->othernames,
+        'id' => $this->id));
+  }
+
+  public function destroy() {
+    $query = DB::connection()->prepare('DELETE FROM ItemAuthor WHERE author_id = :id');
+    $query->execute(array('id' => $this->id));
+    $query2 = DB::connection()->prepare('DELETE FROM Author WHERE id = :id');
+    $query2->execute(array('id' => $this->id));
+  }
   
     public static function itemsAuthors($item_id) {
         $query = DB::connection()->prepare(
@@ -55,7 +80,7 @@ class Author extends BaseModel {
                 INNER JOIN Author
                 ON Author.id = ItemAuthor.author_id
                 WHERE Item.id =:item_id');
-        $query->execute(array('id' => $item_id));
+        $query->execute(array('item_id' => $item_id));
         $rows = $query->fetchAll();
         $authors = array();
         

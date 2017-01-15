@@ -9,7 +9,8 @@ class ItemController extends BaseController {
 
   public static function show($id) {
     $item = Item::find($id);
-    View::make('item/show.html', array('item' => $item));
+    $authors = Author::itemsAuthors($id);
+    View::make('item/show.html', array('item' => $item, 'authors' => $authors));
   }
 
   public static function create() {
@@ -28,7 +29,6 @@ class ItemController extends BaseController {
         'otherdetails' => $params['otherdetails']
     );
     foreach ($authors as $author) {
-      // Lisätään kaikkien kategorioiden id:t taulukkoon
       $attributes['authors'][] = $author;
     }
 
@@ -50,14 +50,16 @@ class ItemController extends BaseController {
   public static function edit($id) {
     self::check_authorized();
     $item = Item::find($id);
+    $itemauthors = Author::itemsAuthors($id);
     $authors = Author::all();
-    View::make('item/edit.html', array('attributes' => $item, 'authors' => $authors));
+    View::make('item/edit.html', array('attributes' => $item, 'itemauthors' => $itemauthors, 'authors' => $authors));
   }
 
   // Aineiston muokkaaminen (lomakkeen käsittely)
   public static function update($id) {
     self::check_authorized();
     $params = $_POST;
+    $authors = $params['authors'];
 
     $attributes = array(
         'id' => $id,
@@ -65,6 +67,10 @@ class ItemController extends BaseController {
         'itemtype' => $params['itemtype'],
         'otherdetails' => $params['otherdetails']
     );
+    
+    foreach ($authors as $author) {
+      $attributes['authors'][] = $author;
+    }
 
     // Alustetaan Item-olio käyttäjän syöttämillä tiedoilla
     $item = new Item($attributes);
@@ -88,18 +94,6 @@ class ItemController extends BaseController {
     $item->destroy();
 
     Redirect::to('/item', array('message' => 'Aineisto on poistettu onnistuneesti!'));
-  }
-
-  public static function sandbox() {
-    // Testaa koodiasi täällä
-    echo 'Hello World! Hiekkalaatikko!';
-//        View::make('helloworld.html');
-
-    $logi = Item::find(1);
-    $items = Item::all();
-    // Kint-luokan dump-metodi tulostaa muuttujan arvon
-    Kint::dump($items);
-    Kint::dump($logi);
   }
 
 }
